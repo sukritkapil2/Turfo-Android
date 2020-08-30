@@ -41,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("Verifying Details ...");
 
+        SharedPreferences appConfig = getApplicationContext().getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
+        appConfig.edit().putBoolean("firstTime", false).apply();
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -35,14 +35,22 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        SharedPreferences appConfig = getApplicationContext().getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("userToken", "");
         String id = sharedPreferences.getString("userId", "");
+        boolean firstTime = appConfig.getBoolean("firstTime", true);
 
+        // If user is not logged in
         if(token != null && token.length() != 0 && id != null && id.length() != 0) {
             getUserStatus(id, token);
         } else {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+            if(firstTime) {
+                Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
         }
     }
 
@@ -56,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 if(!response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "Error : " + response.code(), Toast.LENGTH_SHORT).show();
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+                    sharedPreferences.edit().clear().apply();
+                    Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+                    startActivity(intent);
                 } else {
                     if(response.body().isSeller()) {
                         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
