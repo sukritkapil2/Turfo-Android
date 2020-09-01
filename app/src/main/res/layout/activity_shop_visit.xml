@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShopVisitActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/shopsLoading"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            />
+
+        <ImageView
+            android:id="@+id/shopImage"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:scaleType="centerCrop"
+            android:layout_below="@id/shopsLoading"
+            android:layout_alignParentTop="true"></ImageView>
+
+        <TextView
+            android:id="@+id/shopName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="26sp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:layout_marginLeft="5dp"
+            android:text="Shop Name"
+            android:layout_below="@id/shopImage"
+            ></TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopAddress"
+            android:text="Shop Address"
+            android:layout_below="@id/shopName"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito"></TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopOwner"
+            android:text="Shop Owner"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/shopAddress"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito"></TextView>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/shopOwner"
+            android:layout_marginTop="11dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/trendingTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_extrabold"
+            android:padding="10dp"
+            android:text="Shop Products"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/divider2"
+            android:textSize="16sp"></TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/trendingTxt"></androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

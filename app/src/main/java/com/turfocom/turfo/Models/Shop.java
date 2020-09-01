@@ -5,60 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
-class Owner {
-    @SerializedName("name")
-    String name;
-
-    @SerializedName("pic")
-    String pic;
-
-    @SerializedName("phone")
-    String phone;
-
-    @SerializedName("email")
-    String email;
-
-    public Owner(String name, String pic, String phone, String email) {
-        this.name = name;
-        this.pic = pic;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-}
-
 public class Shop {
+
+    @SerializedName("_id")
+    String _id;
+
     @SerializedName("name")
     String name;
 
@@ -101,7 +52,8 @@ public class Shop {
     @SerializedName("products")
     ArrayList<String> products;
 
-    public Shop(String name, String address, Owner owner, String category, String thumbnail, ArrayList<String> gallery, String shopPhone, Integer rating, String city, Integer defaultDeliveryPrice, Date dateAdded, boolean verified, ArrayList<Review> reviews, ArrayList<String> products) {
+    public Shop(String _id, String name, String address, Owner owner, String category, String thumbnail, ArrayList<String> gallery, String shopPhone, Integer rating, String city, Integer defaultDeliveryPrice, Date dateAdded, boolean verified, ArrayList<Review> reviews, ArrayList<String> products) {
+        this._id = _id;
         this.name = name;
         this.address = address;
         this.owner = owner;
@@ -116,6 +68,14 @@ public class Shop {
         this.verified = verified;
         this.reviews = reviews;
         this.products = products;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getName() {

@@ -51,6 +51,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar progressBar;
     private MaterialToolbar topAppBar;
     private String city;
+    private TextView viewAllShops, shopsNearbyTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.navigation);
         progressBar = findViewById(R.id.shopsLoading);
         topAppBar = findViewById(R.id.topAppBar);
+        viewAllShops = findViewById(R.id.viewAllShops);
+        shopsNearbyTxt = findViewById(R.id.shopsnearby);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, topAppBar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -75,6 +78,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView email = navigationView.getHeaderView(0).findViewById(R.id.emailHeader);
         email.setText(sharedPreferences.getString("email", "Sign In & Get Started"));
         city = appConfig.getString("city", "talwara");
+
+        viewAllShops.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, ShopsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        shopsNearbyTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, ShopsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(this);
         fetchShopsNearby();

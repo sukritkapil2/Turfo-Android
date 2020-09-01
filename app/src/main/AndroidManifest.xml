@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CitySelectActivity"></activity>
+        <activity android:name=".ProductDetailsActivity"></activity>
+        <activity android:name=".ShopVisitActivity" />
+        <activity android:name=".ShopsActivity" />
+        <activity android:name=".CitySelectActivity" />
         <activity android:name=".CategoryProductsActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".ChoiceActivity" />

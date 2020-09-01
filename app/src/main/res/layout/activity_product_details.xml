@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDetailsActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/productLoading"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shop"
+                android:text="Shop Details"
+                android:layout_below="@id/productLoading"
+                android:padding="5dp"
+                android:fontFamily="@font/nunito"
+                android:textColor="@android:color/holo_blue_dark"
+                ></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Product Details"
+                android:layout_below="@id/shop"
+                android:layout_margin="5dp"
+                android:id="@+id/productDetails"
+                android:fontFamily="@font/nunito"
+                ></TextView>
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_below="@id/productDetails"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Price"
+                android:id="@+id/itemPrice"
+                android:layout_below="@id/image"
+                android:textSize="26sp"
+                android:padding="5dp"
+                android:fontFamily="@font/nunito_extrabold"
+                android:layout_marginLeft="5dp"
+                ></TextView>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Product Description"
+                android:layout_below="@id/itemPrice"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"></TextView>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

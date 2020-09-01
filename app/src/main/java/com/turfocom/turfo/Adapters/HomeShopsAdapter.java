@@ -1,16 +1,19 @@
 package com.turfocom.turfo.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.turfocom.turfo.R;
 import com.turfocom.turfo.Models.Shop;
+import com.turfocom.turfo.ShopVisitActivity;
 
 import java.util.List;
 
@@ -37,6 +40,15 @@ public class HomeShopsAdapter extends RecyclerView.Adapter<HomeShopsAdapter.Cust
         holder.shopName.setText(dataList.get(position).getName());
         holder.shopAddress.setText(dataList.get(position).getAddress());
         holder.shopCategory.setText(dataList.get(position).getCategory().toUpperCase());
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ShopVisitActivity.class);
+                intent.putExtra("shopId", dataList.get(position).get_id());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

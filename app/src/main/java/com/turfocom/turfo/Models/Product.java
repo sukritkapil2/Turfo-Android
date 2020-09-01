@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Product {
+
+    @SerializedName("_id")
+    String _id;
+
     @SerializedName("name")
     String name;
 
@@ -48,7 +52,8 @@ public class Product {
     @SerializedName("purchases")
     Integer purchases;
 
-    public Product(String name, Integer price, String unit, Integer rating, String thumbnail, String details, ArrayList<String> images, Date lastUpdated, String shopId, String category, Integer deliveryPrice, ArrayList<Review> complaints, String city, Integer purchases) {
+    public Product(String _id, String name, Integer price, String unit, Integer rating, String thumbnail, String details, ArrayList<String> images, Date lastUpdated, String shopId, String category, Integer deliveryPrice, ArrayList<Review> complaints, String city, Integer purchases) {
+        this._id = _id;
         this.name = name;
         this.price = price;
         this.unit = unit;
@@ -63,6 +68,14 @@ public class Product {
         this.complaints = complaints;
         this.city = city;
         this.purchases = purchases;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getName() {

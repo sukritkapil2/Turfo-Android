@@ -1,6 +1,7 @@
 package com.turfocom.turfo.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.turfocom.turfo.Models.Product;
+import com.turfocom.turfo.ProductDetailsActivity;
 import com.turfocom.turfo.R;
 
 import java.util.List;
@@ -53,6 +55,15 @@ public class TrendingProductsAdapter extends RecyclerView.Adapter<TrendingProduc
                         super.setResource(resource);
                     }
                 });
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("productId", dataList.get(position).get_id());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

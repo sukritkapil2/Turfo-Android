@@ -27,11 +27,20 @@ public interface EndPoints {
     @GET("shops")
     Call<List<Shop>> getNearbyShops(@Query("city") String city);
 
+    @GET("shops/{shopId}")
+    Call<Shop> getSpecificShop(@Path("shopId") String shopId);
+
+    @GET("products/{productId}")
+    Call<Product> getSpecificProduct(@Path("productId") String productId);
+
     @GET("products/categories")
     Call<List<Category>> getCategories();
 
     @GET("products/categories/{category}")
     Call<List<Product>> getCategoryProduct(@Path("category") String category, @Query("city") String city);
+
+    @GET("products/shop/{shopId}")
+    Call<List<Product>> getShopProducts(@Path("shopId") String shopId);
 
     @GET("products/trending")
     Call<List<Product>> getTrendingProducts(@Query("city") String city);
