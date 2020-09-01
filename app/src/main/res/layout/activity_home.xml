@@ -36,12 +36,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></EditText>
 
+            <ProgressBar
+                android:id="@+id/shopsLoading"
+                app:layout_constraintBottom_toTopOf="@id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_marginTop="5dp"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                />
+
             <ScrollView
                 android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:fillViewport="true"
                 android:layout_height="match_parent"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="60dp"
                 tools:layout_editor_absoluteY="45dp"
                 app:layout_constraintBottom_toBottomOf="@id/searchT">
 
@@ -69,13 +79,6 @@
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"></TextView>
 
-                        <ProgressBar
-                            android:id="@+id/shopsLoading"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -87,7 +90,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_below="@id/shopsLinear">
+                        android:layout_below="@id/shopsLinear"
+                        android:id="@+id/categories">
 
                         <TextView
                             android:id="@+id/productCategory"
@@ -100,18 +104,35 @@
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"></TextView>
 
-                        <ProgressBar
-                            android:id="@+id/categoryLoading"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/recyclerViewCategory"
+                            android:orientation="horizontal">
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@id/categories">
+
+                        <TextView
+                            android:id="@+id/trendingTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunito_extrabold"
+                            android:padding="10dp"
+                            android:text="Best Sellers"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"></TextView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/recyclerViewTrending"
                             android:orientation="horizontal">
                         </androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>

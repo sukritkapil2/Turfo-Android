@@ -32,4 +32,7 @@ public interface EndPoints {
 
     @GET("products/categories/{category}")
     Call<List<Product>> getCategoryProduct(@Path("category") String category, @Query("city") String city);
+
+    @GET("products/trending")
+    Call<List<Product>> getTrendingProducts(@Query("city") String city);
 }

@@ -45,7 +45,10 @@ public class Product {
     @SerializedName("city")
     String city;
 
-    public Product(String name, Integer price, String unit, Integer rating, String thumbnail, String details, ArrayList<String> images, Date lastUpdated, String shopId, String category, Integer deliveryPrice, ArrayList<Review> complaints, String city) {
+    @SerializedName("purchases")
+    Integer purchases;
+
+    public Product(String name, Integer price, String unit, Integer rating, String thumbnail, String details, ArrayList<String> images, Date lastUpdated, String shopId, String category, Integer deliveryPrice, ArrayList<Review> complaints, String city, Integer purchases) {
         this.name = name;
         this.price = price;
         this.unit = unit;
@@ -59,6 +62,7 @@ public class Product {
         this.deliveryPrice = deliveryPrice;
         this.complaints = complaints;
         this.city = city;
+        this.purchases = purchases;
     }
 
     public String getName() {
@@ -163,5 +167,13 @@ public class Product {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Integer getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Integer purchases) {
+        this.purchases = purchases;
     }
 }

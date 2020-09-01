@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,9 +24,12 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.turfocom.turfo.API.EndPoints;
+import com.turfocom.turfo.Adapters.CategoryProductsAdapter;
 import com.turfocom.turfo.Adapters.HomeCategoryAdapter;
 import com.turfocom.turfo.Adapters.HomeShopsAdapter;
+import com.turfocom.turfo.Adapters.TrendingProductsAdapter;
 import com.turfocom.turfo.Models.Category;
+import com.turfocom.turfo.Models.Product;
 import com.turfocom.turfo.Models.Shop;
 import com.turfocom.turfo.Retrofit.RetrofitClientInstance;
 
@@ -42,8 +46,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private HomeShopsAdapter adapter;
     private HomeCategoryAdapter adapter2;
-    private RecyclerView recyclerView, recyclerView2;
-    private ProgressBar progressBar, progressBar2;
+    private TrendingProductsAdapter adapter3;
+    private RecyclerView recyclerView, recyclerView2, recyclerView3;
+    private ProgressBar progressBar;
     private MaterialToolbar topAppBar;
     private String city;
 
@@ -61,7 +66,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation);
         progressBar = findViewById(R.id.shopsLoading);
-        progressBar2 = findViewById(R.id.categoryLoading);
         topAppBar = findViewById(R.id.topAppBar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, topAppBar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -75,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         fetchShopsNearby();
         fetchCategories();
+        fetchTrendingProducts();
     }
 
     private void fetchShopsNearby() {
@@ -110,20 +115,54 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         call.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                progressBar2.setVisibility(View.GONE);
-                generateCategories(response.body());
+                if(response.isSuccessful()) {
+                    generateCategories(response.body());
+                }
+                else {
+                    Toast.makeText(HomeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                progressBar2.setVisibility(View.GONE);
                 Toast.makeText(HomeActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    private void fetchTrendingProducts() {
+        EndPoints service = RetrofitClientInstance.getRetrofitInstance().create(EndPoints.class);
+        Call<List<Product>> call = service.getTrendingProducts(city);
+
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if(response.isSuccessful()) {
+                    generateTrending(response.body());
+                }
+                else {
+                    Toast.makeText(HomeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(HomeActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void generateTrending(List<Product> productList) {
+        recyclerView3 = findViewById(R.id.recyclerViewTrending);
+        recyclerView3.setNestedScrollingEnabled(false);
+        adapter3 = new TrendingProductsAdapter(this, productList);
+        recyclerView3.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView3.setAdapter(adapter3);
+    }
+
     private void generateFourShops(List<Shop> shopsList) {
         recyclerView = findViewById(R.id.recyclerViewShops);
+        recyclerView.setNestedScrollingEnabled(false);
         adapter = new HomeShopsAdapter(this, shopsList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
         recyclerView.setLayoutManager(layoutManager);
