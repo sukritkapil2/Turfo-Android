@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.turfocom.turfo.API.EndPoints;
 import com.turfocom.turfo.Adapters.CategoryProductsAdapter;
-import com.turfocom.turfo.Models.Category;
 import com.turfocom.turfo.Models.Product;
 import com.turfocom.turfo.Retrofit.RetrofitClientInstance;
 
@@ -31,14 +30,7 @@ public class CategoryProductsActivity extends AppCompatActivity {
     private MaterialToolbar topAppBar;
     private RecyclerView recyclerView;
     private CategoryProductsAdapter adapter;
-
-    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-        return edit.putLong(key, Double.doubleToRawLongBits(value));
-    }
-
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
-    }
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +42,14 @@ public class CategoryProductsActivity extends AppCompatActivity {
         topAppBar.setTitle(getIntent().getStringExtra("category"));
 
         SharedPreferences appConfig = getApplicationContext().getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
+        city = appConfig.getString("city", "talwara");
 
-        Location location = new Location("");
-        location.setLatitude(getDouble(appConfig, "latitude", 360));
-        location.setLongitude(getDouble(appConfig, "longitude", 360));
-
-        getCategoryProducts(location);
+        getCategoryProducts();
     }
 
-    private void getCategoryProducts(Location location) {
+    private void getCategoryProducts() {
         EndPoints service = RetrofitClientInstance.getRetrofitInstance().create(EndPoints.class);
-        Call<List<Product>> call  = service.getCategoryProduct(getIntent().getStringExtra("category").toLowerCase(), location.getLatitude(), location.getLongitude(), 6.0);
+        Call<List<Product>> call  = service.getCategoryProduct(getIntent().getStringExtra("category").toLowerCase(), city);
 
         call.enqueue(new Callback<List<Product>>() {
             @Override

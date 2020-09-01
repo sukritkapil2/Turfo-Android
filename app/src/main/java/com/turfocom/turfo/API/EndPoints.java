@@ -2,7 +2,6 @@ package com.turfocom.turfo.API;
 
 import com.turfocom.turfo.Models.Category;
 import com.turfocom.turfo.Models.LoginResponse;
-import com.turfocom.turfo.Models.Location;
 import com.turfocom.turfo.Models.Product;
 import com.turfocom.turfo.Models.Shop;
 import com.turfocom.turfo.Models.User;
@@ -26,11 +25,11 @@ public interface EndPoints {
     Call<User> getUserDetails(@Path("id") String id, @Header("Authorization") String token);
 
     @GET("shops")
-    Call<List<Shop>> getNearbyShops(@Query("latitude") Double latitude, @Query("longitude") Double longitude, @Query("distance") Double distance);
+    Call<List<Shop>> getNearbyShops(@Query("city") String city);
 
     @GET("products/categories")
     Call<List<Category>> getCategories();
 
     @GET("products/categories/{category}")
-    Call<List<Product>> getCategoryProduct(@Path("category") String category, @Query("latitude") Double latitude, @Query("longitude") Double longitude, @Query("distance") Double distance);
+    Call<List<Product>> getCategoryProduct(@Path("category") String category, @Query("city") String city);
 }

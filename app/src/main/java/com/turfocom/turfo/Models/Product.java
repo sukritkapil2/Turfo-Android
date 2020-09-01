@@ -42,10 +42,10 @@ public class Product {
     @SerializedName("complaints")
     ArrayList<Review> complaints;
 
-    @SerializedName("location")
-    Location location;
+    @SerializedName("city")
+    String city;
 
-    public Product(String name, Integer price, String unit, Integer rating, String thumbnail, String details, ArrayList<String> images, Date lastUpdated, String shopId, String category, Integer deliveryPrice, ArrayList<Review> complaints, Location location) {
+    public Product(String name, Integer price, String unit, Integer rating, String thumbnail, String details, ArrayList<String> images, Date lastUpdated, String shopId, String category, Integer deliveryPrice, ArrayList<Review> complaints, String city) {
         this.name = name;
         this.price = price;
         this.unit = unit;
@@ -58,7 +58,7 @@ public class Product {
         this.category = category;
         this.deliveryPrice = deliveryPrice;
         this.complaints = complaints;
-        this.location = location;
+        this.city = city;
     }
 
     public String getName() {
@@ -157,11 +157,11 @@ public class Product {
         this.complaints = complaints;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getCity() {
+        return city;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setCity(String city) {
+        this.city = city;
     }
 }

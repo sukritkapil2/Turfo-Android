@@ -23,7 +23,8 @@ import retrofit2.Response;
 // else redirects to Login Activity
 public class MainActivity extends AppCompatActivity {
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
+    private SharedPreferences sharedPreferences, appConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Please Wait ...");
         progressDialog.show();
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
-        SharedPreferences appConfig = getApplicationContext().getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        appConfig = getApplicationContext().getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("userToken", "");
         String id = sharedPreferences.getString("userId", "");
         boolean firstTime = appConfig.getBoolean("firstTime", true);
 
-        // If user is not logged in
+        // If user is logged in
         if(token != null && token.length() != 0 && id != null && id.length() != 0) {
             getUserStatus(id, token);
         } else {
@@ -48,8 +49,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
+                String city = appConfig.getString("city", "");
+
+                if(city.length() == 0) {
+                    Intent intent = new Intent(MainActivity.this, CitySelectActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
             }
         }
     }
@@ -80,8 +88,15 @@ public class MainActivity extends AppCompatActivity {
                         sharedPreferences.edit().putString("name", response.body().getName()).apply();
                         sharedPreferences.edit().putString("email", response.body().getEmail()).apply();
                     }
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
+
+                    String city = appConfig.getString("city", "");
+                    if(city.length() == 0) {
+                        Intent intent = new Intent(MainActivity.this, CitySelectActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
 

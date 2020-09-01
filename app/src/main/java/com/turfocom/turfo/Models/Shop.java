@@ -2,7 +2,6 @@ package com.turfocom.turfo.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -84,8 +83,8 @@ public class Shop {
     @SerializedName("rating")
     Integer rating;
 
-    @SerializedName("location")
-    Location location;
+    @SerializedName("city")
+    String city;
 
     @SerializedName("defaultDeliveryPrice")
     Integer defaultDeliveryPrice;
@@ -99,7 +98,10 @@ public class Shop {
     @SerializedName("reviews")
     ArrayList<Review> reviews;
 
-    public Shop(String name, String address, Owner owner, String category, String thumbnail, ArrayList<String> gallery, String shopPhone, Integer rating, Location location, Integer defaultDeliveryPrice, Date dateAdded, boolean verified, ArrayList<Review> reviews) {
+    @SerializedName("products")
+    ArrayList<String> products;
+
+    public Shop(String name, String address, Owner owner, String category, String thumbnail, ArrayList<String> gallery, String shopPhone, Integer rating, String city, Integer defaultDeliveryPrice, Date dateAdded, boolean verified, ArrayList<Review> reviews, ArrayList<String> products) {
         this.name = name;
         this.address = address;
         this.owner = owner;
@@ -108,11 +110,12 @@ public class Shop {
         this.gallery = gallery;
         this.shopPhone = shopPhone;
         this.rating = rating;
-        this.location = location;
+        this.city = city;
         this.defaultDeliveryPrice = defaultDeliveryPrice;
         this.dateAdded = dateAdded;
         this.verified = verified;
         this.reviews = reviews;
+        this.products = products;
     }
 
     public String getName() {
@@ -179,12 +182,12 @@ public class Shop {
         this.rating = rating;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getCity() {
+        return city;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Integer getDefaultDeliveryPrice() {
@@ -217,5 +220,13 @@ public class Shop {
 
     public void setReviews(Review review) {
         this.reviews = reviews;
+    }
+
+    public ArrayList<String> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<String> products) {
+        this.products = products;
     }
 }
